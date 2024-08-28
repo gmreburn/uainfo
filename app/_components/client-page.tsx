@@ -15,11 +15,29 @@ import {
 	MonitorIcon,
 	ServerIcon,
 	SmartphoneIcon,
+	UserIcon,
 } from "lucide-react";
 import { submitAction, UserAgent } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { parseUserAgentString } from "./actions";
+import {
+	DiWindows,
+	DiApple,
+	DiAndroid,
+	DiBlackberry,
+	DiDebian,
+	DiLinux,
+	DiRedhat,
+	DiUbuntu,
+	DiChrome,
+	DiFirefox,
+	DiSafari,
+	DiOpera,
+} from "react-icons/di";
+import { GrMonitor } from "react-icons/gr";
+import { get } from "http";
+import { FaEdge, FaEdgeLegacy } from "react-icons/fa";
 
 type Props = {
 	userAgent: UserAgent | null;
@@ -29,6 +47,9 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 	const [userAgentString, setUserAgentString] = useState(initialUserAgent?.ua);
 	const [ua, setUserAgent] = useState(initialUserAgent);
 	const userAgent = useDeferredValue(ua);
+	const OsIcon = getOsIcon(userAgent?.os.name);
+	const BrowserIcon = getBrowserIcon(userAgent?.browser.name);
+
 	return (
 		<div className='container mx-auto p-4'>
 			<h1 className='text-2xl font-bold mb-4'>User Agent Information</h1>
@@ -53,7 +74,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Browser</CardTitle>
-						<GlobeIcon className='h-4 w-4 text-muted-foreground' />
+						<BrowserIcon className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.browser.name}</div>
@@ -65,7 +86,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Engine</CardTitle>
-						<ServerIcon className='h-4 w-4 text-muted-foreground' />
+						<ServerIcon className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.engine.name}</div>
@@ -79,7 +100,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 						<CardTitle className='text-sm font-medium'>
 							Operating System
 						</CardTitle>
-						<MonitorIcon className='h-4 w-4 text-muted-foreground' />
+						<OsIcon className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.os.name}</div>
@@ -91,7 +112,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Device</CardTitle>
-						<SmartphoneIcon className='h-4 w-4 text-muted-foreground' />
+						<SmartphoneIcon className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -106,7 +127,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>CPU</CardTitle>
-						<CpuIcon className='h-4 w-4 text-muted-foreground' />
+						<CpuIcon className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -118,9 +139,9 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Bot Status</CardTitle>
 						{userAgent?.isBot ? (
-							<BotIcon className='h-4 w-4 text-muted-foreground' />
+							<BotIcon className='h-6 w-6 text-muted-foreground' />
 						) : (
-							<GlobeIcon className='h-4 w-4 text-muted-foreground' />
+							<UserIcon className='h-6 w-6 text-muted-foreground' />
 						)}
 					</CardHeader>
 					<CardContent>
@@ -146,3 +167,45 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 }
 
 export default ClientPage;
+
+function getOsIcon(operatingSystemName?: string) {
+	if (operatingSystemName === "Windows") {
+		return DiWindows;
+	} else if (operatingSystemName === "macOS") {
+		return DiApple;
+	} else if (operatingSystemName === "iOS") {
+		return DiApple;
+	} else if (operatingSystemName === "Android") {
+		return DiAndroid;
+	} else if (operatingSystemName === "Linux") {
+		return DiLinux;
+	} else if (operatingSystemName === "Ubuntu") {
+		return DiUbuntu;
+	} else if (operatingSystemName === "Debian") {
+		return DiDebian;
+	} else if (operatingSystemName === "Red Hat") {
+		return DiRedhat;
+	} else if (operatingSystemName === "BlackBerry") {
+		return DiBlackberry;
+	} else {
+		return GrMonitor;
+	}
+}
+
+function getBrowserIcon(browserName?: string) {
+	if (browserName === "Chrome") {
+		return DiChrome;
+	} else if (browserName === "Firefox") {
+		return DiFirefox;
+	} else if (browserName === "Safari") {
+		return DiSafari;
+	} else if (browserName === "Edge") {
+		return FaEdge;
+	} else if (browserName === "Internet Explorer") {
+		return FaEdgeLegacy;
+	} else if (browserName === "Opera" || browserName === "Opera Mini") {
+		return DiOpera;
+	} else {
+		return GlobeIcon;
+	}
+}
