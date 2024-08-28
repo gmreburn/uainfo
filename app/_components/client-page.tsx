@@ -8,15 +8,14 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import {
-	BotIcon,
-	CpuIcon,
-	GlobeIcon,
-	MonitorIcon,
-	ServerIcon,
-	SmartphoneIcon,
-	UserIcon,
-} from "lucide-react";
+// import {
+// 	BotIcon,
+// 	CpuIcon,
+// 	GlobeIcon,
+// 	ServerIcon,
+// 	SmartphoneIcon,
+// 	UserIcon,
+// } from "lucide-react";
 import { submitAction, UserAgent } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -36,8 +35,16 @@ import {
 	DiOpera,
 } from "react-icons/di";
 import { GrMonitor } from "react-icons/gr";
-import { get } from "http";
-import { FaEdge, FaEdgeLegacy } from "react-icons/fa";
+import {
+	FaEdge,
+	FaEdgeLegacy,
+	FaGlobe,
+	FaMicrochip,
+	FaMobileAlt,
+	FaRobot,
+	FaServer,
+	FaUser,
+} from "react-icons/fa";
 
 type Props = {
 	userAgent: UserAgent | null;
@@ -86,7 +93,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Engine</CardTitle>
-						<ServerIcon className='h-6 w-6 text-muted-foreground' />
+						<FaServer className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.engine.name}</div>
@@ -112,7 +119,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Device</CardTitle>
-						<SmartphoneIcon className='h-6 w-6 text-muted-foreground' />
+						<FaMobileAlt className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -127,7 +134,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>CPU</CardTitle>
-						<CpuIcon className='h-6 w-6 text-muted-foreground' />
+						<FaMicrochip className='h-6 w-6 text-muted-foreground' />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -139,9 +146,9 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Bot Status</CardTitle>
 						{userAgent?.isBot ? (
-							<BotIcon className='h-6 w-6 text-muted-foreground' />
+							<FaRobot className='h-6 w-6 text-muted-foreground' />
 						) : (
-							<UserIcon className='h-6 w-6 text-muted-foreground' />
+							<FaUser className='h-6 w-6 text-muted-foreground' />
 						)}
 					</CardHeader>
 					<CardContent>
@@ -206,6 +213,6 @@ function getBrowserIcon(browserName?: string) {
 	} else if (browserName === "Opera" || browserName === "Opera Mini") {
 		return DiOpera;
 	} else {
-		return GlobeIcon;
+		return FaGlobe;
 	}
 }
