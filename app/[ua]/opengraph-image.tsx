@@ -40,6 +40,7 @@ function Summary({
 				width: "33%",
 				alignItems: "center",
 				justifyContent: "center",
+				backgroundColor: "white",
 			}}
 		>
 			<div
