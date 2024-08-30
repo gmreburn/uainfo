@@ -8,14 +8,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-// import {
-// 	BotIcon,
-// 	CpuIcon,
-// 	GlobeIcon,
-// 	ServerIcon,
-// 	SmartphoneIcon,
-// 	UserIcon,
-// } from "lucide-react";
 import { submitAction, UserAgent } from "./actions";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -29,22 +21,20 @@ import {
 	DiLinux,
 	DiRedhat,
 	DiUbuntu,
-	DiChrome,
-	DiFirefox,
-	DiSafari,
-	DiOpera,
 } from "react-icons/di";
 import { GrMonitor } from "react-icons/gr";
 import {
-	FaEdge,
-	FaEdgeLegacy,
-	FaGlobe,
 	FaMicrochip,
 	FaMobileAlt,
 	FaRobot,
 	FaServer,
 	FaUser,
 } from "react-icons/fa";
+import BrowserIcon from "./browser-icon";
+import OperatingSystemIcon from "./operating-system-icon";
+import EngineIcon from "./engine-icon";
+import CPUIcon from "./cpu-icon";
+import BotIcon from "./bot-icon";
 
 type Props = {
 	userAgent: UserAgent | null;
@@ -54,8 +44,6 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 	const [userAgentString, setUserAgentString] = useState(initialUserAgent?.ua);
 	const [ua, setUserAgent] = useState(initialUserAgent);
 	const userAgent = useDeferredValue(ua);
-	const OsIcon = getOsIcon(userAgent?.os.name);
-	const BrowserIcon = getBrowserIcon(userAgent?.browser.name);
 
 	return (
 		<div className='container mx-auto p-4'>
@@ -81,7 +69,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Browser</CardTitle>
-						<BrowserIcon className='h-6 w-6 text-muted-foreground' />
+						<BrowserIcon browserName={userAgent?.browser.name} />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.browser.name}</div>
@@ -93,7 +81,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Engine</CardTitle>
-						<FaServer className='h-6 w-6 text-muted-foreground' />
+						<EngineIcon engine={userAgent?.engine} />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.engine.name}</div>
@@ -107,7 +95,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 						<CardTitle className='text-sm font-medium'>
 							Operating System
 						</CardTitle>
-						<OsIcon className='h-6 w-6 text-muted-foreground' />
+						<OperatingSystemIcon operatingSystemName={userAgent?.os.name} />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>{userAgent?.os.name}</div>
@@ -134,7 +122,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>CPU</CardTitle>
-						<FaMicrochip className='h-6 w-6 text-muted-foreground' />
+						<CPUIcon cpu={userAgent?.cpu} />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -145,11 +133,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 				<Card>
 					<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 						<CardTitle className='text-sm font-medium'>Bot Status</CardTitle>
-						{userAgent?.isBot ? (
-							<FaRobot className='h-6 w-6 text-muted-foreground' />
-						) : (
-							<FaUser className='h-6 w-6 text-muted-foreground' />
-						)}
+						<BotIcon isBot={userAgent?.isBot} />
 					</CardHeader>
 					<CardContent>
 						<div className='text-2xl font-bold'>
@@ -174,45 +158,3 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 }
 
 export default ClientPage;
-
-function getOsIcon(operatingSystemName?: string) {
-	if (operatingSystemName === "Windows") {
-		return DiWindows;
-	} else if (operatingSystemName === "macOS") {
-		return DiApple;
-	} else if (operatingSystemName === "iOS") {
-		return DiApple;
-	} else if (operatingSystemName === "Android") {
-		return DiAndroid;
-	} else if (operatingSystemName === "Linux") {
-		return DiLinux;
-	} else if (operatingSystemName === "Ubuntu") {
-		return DiUbuntu;
-	} else if (operatingSystemName === "Debian") {
-		return DiDebian;
-	} else if (operatingSystemName === "Red Hat") {
-		return DiRedhat;
-	} else if (operatingSystemName === "BlackBerry") {
-		return DiBlackberry;
-	} else {
-		return GrMonitor;
-	}
-}
-
-function getBrowserIcon(browserName?: string) {
-	if (browserName === "Chrome") {
-		return DiChrome;
-	} else if (browserName === "Firefox") {
-		return DiFirefox;
-	} else if (browserName === "Safari") {
-		return DiSafari;
-	} else if (browserName === "Edge") {
-		return FaEdge;
-	} else if (browserName === "Internet Explorer") {
-		return FaEdgeLegacy;
-	} else if (browserName === "Opera" || browserName === "Opera Mini") {
-		return DiOpera;
-	} else {
-		return FaGlobe;
-	}
-}

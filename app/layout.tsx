@@ -12,7 +12,7 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
 	title: "User Agent Info",
-	description: "Get information about a user agent.",
+	description: "Get information about any user agent.",
 };
 
 export default function RootLayout({

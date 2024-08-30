@@ -9,5 +9,5 @@ export async function parseUserAgentString(ua: string) {
 }
 
 export async function submitAction(formData: FormData) {
-	redirect("/?ua=" + encodeURIComponent(formData.get("ua")?.toString() ?? ""));
+	redirect("/" + encodeURIComponent(formData.get("ua")?.toString() ?? ""));
 }
