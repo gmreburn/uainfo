@@ -40,7 +40,6 @@ function Summary({
 				width: "33%",
 				alignItems: "center",
 				justifyContent: "center",
-				backgroundColor: "white",
 			}}
 		>
 			<div
@@ -63,7 +62,13 @@ export default async function Image({ params }: Props) {
 	console.log(userAgent);
 	return new ImageResponse(
 		(
-			<div style={{ display: "flex", flexDirection: "column" }}>
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					backgroundColor: "white",
+				}}
+			>
 				<div style={{ display: "flex", height: "50%" }}>
 					<Summary
 						icon={<BrowserIcon browserName={userAgent?.browser.name} />}
