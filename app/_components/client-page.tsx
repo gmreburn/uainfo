@@ -59,7 +59,7 @@ function ClientPage({ userAgent: initialUserAgent }: Props) {
 							setUserAgent(await parseUserAgentString(e.target.value));
 						}}
 						placeholder='Enter user agent string'
-						className='flex-grow'
+						className='grow'
 						autoFocus
 					/>
 					<Button type='submit'>Decode</Button>
