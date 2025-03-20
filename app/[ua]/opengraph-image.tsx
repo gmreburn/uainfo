@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
-import { headers as getHeaders } from "next/headers";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 // Image metadata
 export const alt = "About Acme";
@@ -11,7 +10,6 @@ export const size = {
 };
 
 export const contentType = "image/png";
-import { Inter as FontSans } from "next/font/google";
 import BrowserIcon from "../_components/browser-icon";
 import { userAgentFromString } from "next/server";
 import OperatingSystemIcon from "../_components/operating-system-icon";
@@ -19,6 +17,7 @@ import EngineIcon from "../_components/engine-icon";
 import CPUIcon from "../_components/cpu-icon";
 import BotIcon from "../_components/bot-icon";
 import DeviceIcon from "../_components/device-icon";
+import React from "react";
 
 type Props = {
 	params: { ua: string };
@@ -28,7 +27,7 @@ function Summary({
 	name,
 	description,
 }: {
-	icon: JSX.Element;
+	icon: React.JSX.Element;
 	name?: string;
 	description?: string;
 }) {
