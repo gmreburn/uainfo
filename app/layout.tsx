@@ -11,8 +11,9 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-	title: "User Agent Info",
-	description: "Get information about any user agent.",
+	title: "User Agent Analyzer & Decoder",
+	description:
+		"Wondering what your browser says about you? UAInfo shows your user agent details or decodes any user agent you enter — fast, free, and private.",
 };
 
 export default function RootLayout({
